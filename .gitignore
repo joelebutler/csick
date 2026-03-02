@@ -1,0 +1,7 @@
+/target
+
+# Rust files outside src
+**/*.rs
+!src/**/*.rs
+.vscode/**/*
+*.code-workspace

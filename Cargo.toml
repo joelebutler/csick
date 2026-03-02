@@ -1,0 +1,34 @@
+[package]
+name = "csick"
+keywords = ["c++", "ffi", "codegen", "scaffolding"]
+categories = ["development-tools", "command-line-utilities"]
+authors = ["Joel Butler"]
+version = "0.0.1"
+description = "Scaffolding system for partial Rust implementation in existing C++ codebases."
+edition = "2024"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/joelebutler/csick"
+
+[package.metadata.wix]
+upgrade-guid = "1E1F3D0B-977C-41F9-8149-A1D4B72C1841"
+path-guid = "EDFB0920-72F3-41D3-9888-2F1667EF9B95"
+license = false
+eula = false
+
+[dependencies]
+clang = { version = "2.0.0" }
+clang-sys = { version = "1", features = ["runtime"] }
+clap = { version = "4.5.60", features = ["derive"] }
+fs2 = "0.4.3"
+log = "0.4.29"
+nanoid = "0.5.0"
+pretty_env_logger = "0.5.0"
+serde = { version = "1.0.228", features = ["derive"] }
+notify-debouncer-mini = "0.4"
+serde_json = "1.0.149"
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"

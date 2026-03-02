@@ -1,0 +1,27 @@
+# ! DO NOT CHANGE ! DO NOT CHANGE ! DO NOT CHANGE !
+# CSICK Build & link static Rust library
+# You are safe to move this block if needed, but leave all parts intact.
+
+file(READ "${CMAKE_SOURCE_DIR}/csick.json" _csick_json)
+string(JSON CSICK_CRATE_NAME GET ${_csick_json} "crate_name")
+set(CSICK_CARGO_DIR "${CMAKE_SOURCE_DIR}")
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(_csick_cargo_flag "--release")
+    set(_csick_profile "release")
+else()
+    set(_csick_cargo_flag "")
+    set(_csick_profile "debug")
+endif()
+
+set(_csick_lib "${CSICK_CARGO_DIR}/target/${_csick_profile}/lib${CSICK_CRATE_NAME}.a")
+
+add_custom_target(${CSICK_CRATE_NAME}_rust ALL
+    COMMAND cargo build ${_csick_cargo_flag}
+    WORKING_DIRECTORY ${CSICK_CARGO_DIR}
+    BYPRODUCTS ${_csick_lib}
+    COMMENT "Building Rust crate '${CSICK_CRATE_NAME}'"
+)
+
+# ----- CSICK -----
+# ! DO NOT CHANGE ! DO NOT CHANGE ! DO NOT CHANGE !
